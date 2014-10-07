@@ -15,10 +15,10 @@ def display_random_words(limit=5):
     for i in range(min(len(randoms), limit)):
         print "* " + randoms[i].word;
 
-def display_definitions(word):
+def display_definitions(word, length=5):
     definitions = wordApi.getDefinitions(word)
-    for definition in definitions:
-        print '* ' + definition.text + '\n'
+    for i in range(min(length, len(definitions))):
+        print '* ' + definitions[i].text + '\n'
 
 def display_examples(word):
     examples = wordApi.getExamples(word)
@@ -43,6 +43,19 @@ def display_related_words(word):
         for wd in wds.words:
             print "* " + wd
 
+def display_defitions_of_file_words(path):
+    f = open(path, 'r')
+    words = []
+    for line in f:
+        words.append(line)
+    for word in words:
+        word = word.strip('\n')
+        print "\n----------------------------------------"
+        print "word: ", word
+        print "----------------------------------------"
+        display_definitions(word, 2)
+
+
 
 def display_help():
     '''help: definitions, random words, related words '''
@@ -54,9 +67,9 @@ def display_help():
     print "  [-e or --exp] word : displays the examples of word"
     print "  [-t or --tope] word : displays the top example of word"
     print "  [-s or --relate] word : displays the related words"
+    print "  [-f or --file] file : displays the definitions of word from file"
     print "  [-h or --help] displays the guide"
     print "--------------------------------------------------------------------"
-
 
 def main(argv):
     length = len(argv)
@@ -75,9 +88,10 @@ def main(argv):
         display_related_words(argv[2])
     elif argv[1] == '-h' or argv[1] == '--help':
         display_help()
+    elif argv[1] == '-f' or argv[1] == '--file':
+        display_defitions_of_file_words(argv[2])
     else:
         display_help()
-
 
 
 if __name__ == '__main__':

@@ -17,16 +17,20 @@ def display_random_words(limit=5):
 
 def display_definitions(word, length=5):
     definitions = wordApi.getDefinitions(word)
+    print "Definitions: \n"
     for i in range(min(length, len(definitions))):
         print '* ' + definitions[i].text + '\n'
 
-def display_examples(word):
+def display_examples(word, limit=5):
     examples = wordApi.getExamples(word)
     if not examples:
         print "examples not found"
         return
-    for example in examples.examples:
-        print "* " + example.text + '\n'
+    print "Examples: \n"
+    for i in range(min(len(examples.examples), limit)):
+        print "* " + examples.examples[i].text + '\n'
+        # for example in examples.examples:
+        #     print "* " + example.text + '\n'
 
 def display_top_examples(word):
     example = wordApi.getTopExample(word)
@@ -38,10 +42,12 @@ def display_top_examples(word):
 
 def display_related_words(word):
     related = wordApi.getRelatedWords(word)
+    print "Related Words: \n"
     for wds in related:
         #print wds.words
         for wd in wds.words:
             print "* " + wd
+        print ""
 
 def display_defitions_of_file_words(path):
     f = open(path, 'r')
@@ -55,6 +61,13 @@ def display_defitions_of_file_words(path):
         print "----------------------------------------"
         display_definitions(word, 2)
 
+def display_compact(word):
+
+    # print top two definitions
+    display_definitions(word, 2)
+
+    # then display top 3 examples to explain
+    display_examples(word, 3)
 
 
 def display_help():
@@ -68,6 +81,7 @@ def display_help():
     print "  [-t or --tope] word : displays the top example of word"
     print "  [-s or --relate] word : displays the related words"
     print "  [-f or --file] file : displays the definitions of word from file"
+    print "  [-c or --compact] count: display the word's definition and example"
     print "  [-h or --help] displays the guide"
     print "--------------------------------------------------------------------"
 
@@ -90,6 +104,8 @@ def main(argv):
         display_help()
     elif argv[1] == '-f' or argv[1] == '--file':
         display_defitions_of_file_words(argv[2])
+    elif argv[1] == '-c' or argv[1] == '--compact':
+        display_compact(argv[2])
     else:
         display_help()
 

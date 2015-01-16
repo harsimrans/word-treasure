@@ -1,4 +1,7 @@
+#!/usr/bin/env python2
 import sys
+from argparse import ArgumentParser
+
 sys.path.append("./wordnik/")
 
 from wordnik import *
@@ -69,7 +72,6 @@ def display_compact(word):
     # then display top 3 examples to explain
     display_examples(word, 3)
 
-
 def display_help():
     '''help: definitions, random words, related words '''
     print "--------------------------------------------------------------------"
@@ -86,29 +88,39 @@ def display_help():
     print "--------------------------------------------------------------------"
 
 def main(argv):
-    length = len(argv)
-    if length != 3:
-        display_help()
-        exit(10)
-    if argv[1] == '-r' or argv[1] == '--random':
-        display_random_words(int(argv[2]))
-    elif argv[1] == '-d' or argv[1] == '--defi':
-        display_definitions(argv[2])
-    elif argv[1] == '-e' or argv[1] == '--exp':
-        display_examples(argv[2])
-    elif argv[1] == '-t' or argv[1] == '--tope':
-        display_top_examples(argv[2])
-    elif argv[1] == '-s' or argv[1] == '--relate':
-        display_related_words(argv[2])
-    elif argv[1] == '-h' or argv[1] == '--help':
-        display_help()
-    elif argv[1] == '-f' or argv[1] == '--file':
-        display_defitions_of_file_words(argv[2])
-    elif argv[1] == '-c' or argv[1] == '--compact':
-        display_compact(argv[2])
+    parser = ArgumentParser()
+
+    #adding options to parser
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument("-r", "--random", action="store_true", dest="random", help="displays random words")
+    group.add_argument("-d", "--defi", action="store_true", dest="definition", help="displays definition of the word")
+    group.add_argument("-e", "--examples", action="store_true", dest="examples", help="displays examples")
+    group.add_argument("-t", "--topexample", action="store_true", dest="topexample", help="displays top examples")
+    group.add_argument("-s", "--similarwords", action="store_true", dest="similarwords", help="displays similar words")
+    group.add_argument("-c", "--compact", action="store_true", dest="compact", help="displays all things about word in compact form")
+    parser.add_argument("word",  help="Word / count which ever is applicable")
+
+    args, other_args = parser.parse_known_args()
+    # print args, args.word
+    word = args.word
+    if word == '':
+        parser.print_usage()
+        exit(1)
+    if args.random:
+        display_random_words(word)
+    elif args.definition:
+        display_definitions(word)
+    elif args.examples:
+        display_examples(word)
+    elif args.topexample:
+        display_top_examples(word)
+    elif args.similarwords:
+        display_related_words(word)
+    elif args.compact:
+        display_compact(word)
     else:
         display_help()
 
-
 if __name__ == '__main__':
-    main(sys.argv)
+    sys.exit(main())

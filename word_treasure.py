@@ -72,6 +72,18 @@ def display_compact(word):
     # then display top 3 examples to explain
     display_examples(word, 3)
 
+def read_from_file(filename):
+    f = open(filename, 'r')
+    for word in f:
+        print "*****************************"
+        print "Word: " + str(word),
+        print "*****************************"
+        word = word.strip("\n")
+        display_compact(word)
+        raw_input("Press enter to continue ...")
+        print "\033[2A"
+    return
+
 def display_help():
     '''help: definitions, random words, related words '''
     print "--------------------------------------------------------------------"
@@ -99,6 +111,8 @@ def main(argv):
     group.add_argument("-t", "--topexample", action="store_true", dest="topexample", help="displays top examples")
     group.add_argument("-s", "--similarwords", action="store_true", dest="similarwords", help="displays similar words")
     group.add_argument("-c", "--compact", action="store_true", dest="compact", help="displays all things about word in compact form")
+    group.add_argument("-f", "--file", action="store_true", dest="file", help="displays words in compact form from file")
+
     parser.add_argument("word",  help="Word / count which ever is applicable")
 
     args, other_args = parser.parse_known_args()
@@ -119,8 +133,10 @@ def main(argv):
         display_related_words(word)
     elif args.compact:
         display_compact(word)
+    elif args.file:
+        read_from_file(word)
     else:
         display_help()
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(main(sys.argv))

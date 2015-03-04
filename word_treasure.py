@@ -20,9 +20,13 @@ def display_random_words(limit=5):
 
 def display_definitions(word, length=5):
     definitions = wordApi.getDefinitions(word)
+    if not definitions:
+        print "Probably not a valid word"
+        return
     print "Definitions: \n"
     for i in range(min(length, len(definitions))):
         print '* ' + definitions[i].text + '\n'
+    return True
 
 def display_examples(word, limit=5):
     examples = wordApi.getExamples(word)
@@ -39,7 +43,7 @@ def display_top_examples(word):
     example = wordApi.getTopExample(word)
     if not example:
         print "No example found"
-        return
+        return None
     print "\nExample: "
     print  example.text + '\n'
 
@@ -67,7 +71,8 @@ def display_defitions_of_file_words(path):
 def display_compact(word):
 
     # print top two definitions
-    display_definitions(word, 2)
+    if display_definitions(word, 2) == None:
+        return
 
     # then display top 3 examples to explain
     display_examples(word, 3)

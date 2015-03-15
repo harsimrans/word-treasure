@@ -130,7 +130,7 @@ def main(argv):
     group = parser.add_mutually_exclusive_group()
 
     group.add_argument("-r", "--random", action="store_true", dest="random", help="displays random words")
-    group.add_argument("-d", "--defi", action="store_true", dest="definition", help="displays definition of the word")
+    group.add_argument("-d", "--defi", action="store_true", dest="definition", help="displays definition of the word", default="True")
     group.add_argument("-e", "--examples", action="store_true", dest="examples", help="displays examples")
     group.add_argument("-t", "--topexample", action="store_true", dest="topexample", help="displays top examples")
     group.add_argument("-s", "--similarwords", action="store_true", dest="similarwords", help="displays similar words")

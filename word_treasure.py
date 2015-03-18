@@ -21,7 +21,7 @@
 import sys
 from argparse import ArgumentParser
 
-sys.path.append("./wordnik/")
+#sys.path.append("./wordnik/")
 
 from wordnik import *
 

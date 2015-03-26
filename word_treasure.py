@@ -147,8 +147,6 @@ def main(argv):
         exit(1)
     if args.random:
         display_random_words(word)
-    elif args.definition:
-        display_definitions(word)
     elif args.examples:
         display_examples(word)
     elif args.topexample:
@@ -159,6 +157,9 @@ def main(argv):
         display_compact(word)
     elif args.file:
         read_from_file(word)
+    # should be last, value true by default
+    elif args.definition:
+        display_definitions(word)
     else:
         display_help()
 

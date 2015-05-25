@@ -2,3 +2,6 @@ words
 word
 list_words
 list*
+.coverage
+__pycache__/
+word_treasure.pyc

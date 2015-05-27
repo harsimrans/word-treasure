@@ -68,6 +68,9 @@ def display_top_examples(word):
 
 def display_related_words(word):
     related = wordApi.getRelatedWords(word)
+    if related == None:
+        print "No related words found"
+        return
     print "Related Words: \n"
     for wds in related:
         #print wds.words

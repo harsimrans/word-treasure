@@ -2,10 +2,16 @@ import unittest
 from word_treasure import *
 
 class WordTreasureTestCase(unittest.TestCase):
-    """Test for word treasure."""
+    """Test for functions in word treasure.
+    The major aim is to check if there is any
+    unexpected crash.
+    Doesnot check the validity of the response"""
+
     def test_definition_call(self):
-        word = "hello"
-        display_definitions(word)
+        word1 = "hello"
+        word2 = "somenonexistantword"
+        display_definitions(word1)
+        display_definitions(word2)
         return True
 
     def test_random_words(self):
@@ -14,20 +20,28 @@ class WordTreasureTestCase(unittest.TestCase):
         return True
     def test_display_examples(self):
         limit = 10
-        word = "hello"
-        display_examples(word, limit)
+        word1 = "hello"
+        word2 = "somenonexistantword"
+        display_examples(word1, limit)
+        display_examples(word2, limit)
         return True
     def test_display_top_examples(self):
-        word = "hello"
-        display_top_examples(word)
+        word1 = "hello"
+        word2 = "somenonexistantword"
+        display_top_examples(word1)
+        display_top_examples(word2)
         return True
     def test_display_related_words(self):
-        word = "hello"
-        display_related_words(word)
+        word1 = "hello"
+        word2 = "somenonexistantword"
+        display_related_words(word1)
+        display_related_words(word2)
         return True
     def test_display_compact(self):
-        word = "hello"
-        display_compact(word)
+        word1 = "hello"
+        word2 = "somenonexistantword"
+        display_compact(word1)
+        display_compact(word2)
         return True
     def test_help_display(self):
         display_help()

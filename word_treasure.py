@@ -59,6 +59,9 @@ def display_examples(word, limit=5):
         #     print "* " + example.text + '\n'
 
 def display_top_examples(word):
+    definition = wordApi.getDefinitions(word)
+    if definition == None: # probably a non-existant word
+        return
     example = wordApi.getTopExample(word)
     if not example:
         print "No example found"

@@ -5,3 +5,4 @@ list*
 .coverage
 __pycache__/
 word_treasure.pyc
+*pyc

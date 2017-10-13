@@ -36,12 +36,13 @@ def display_random_words(limit=5):
     randoms = wordsApi.getRandomWords();
     for i in range(min(len(randoms), limit)):
         print "* " + randoms[i].word;
+    return True
 
 def display_definitions(word, length=5):
     definitions = wordApi.getDefinitions(word)
     if not definitions:
         print "Probably not a valid word"
-        return
+        return None
     print "Definitions: \n"
     for i in range(min(length, len(definitions))):
         print '* ' + definitions[i].text + '\n'
@@ -51,35 +52,36 @@ def display_examples(word, limit=5):
     examples = wordApi.getExamples(word)
     if not examples:
         print "examples not found"
-        return
+        return None
     print "Examples: \n"
     for i in range(min(len(examples.examples), limit)):
         print "* " + examples.examples[i].text + '\n'
-        # for example in examples.examples:
-        #     print "* " + example.text + '\n'
+    return True
 
 def display_top_examples(word):
     definition = wordApi.getDefinitions(word)
     if definition == None: # probably a non-existant word
-        return
+        return None
     example = wordApi.getTopExample(word)
     if not example:
         print "No example found"
         return None
     print "\nExample: "
     print  example.text + '\n'
+    return True
 
 def display_related_words(word):
     related = wordApi.getRelatedWords(word)
     if related == None:
         print "No related words found"
-        return
+        return None
     print "Related Words: \n"
     for wds in related:
         #print wds.words
         for wd in wds.words:
             print "* " + wd
         print ""
+    return True
 
 def display_defitions_of_file_words(path):
     f = open(path, 'r')
@@ -92,15 +94,17 @@ def display_defitions_of_file_words(path):
         print "word: ", word
         print "----------------------------------------"
         display_definitions(word, 2)
+    return True
 
 def display_compact(word):
 
     # print top two definitions
     if display_definitions(word, 2) == None:
-        return
+        return  None # wasn't a valid word
 
     # then display top 3 examples to explain
     display_examples(word, 3)
+    return True
 
 def read_from_file(filename):
     f = open(filename, 'r')
@@ -112,7 +116,7 @@ def read_from_file(filename):
         display_compact(word)
         raw_input("Press enter to continue ...")
         print "\033[2A"
-    return
+    return True
 
 def display_help():
     '''help: definitions, random words, related words '''
@@ -128,6 +132,7 @@ def display_help():
     print "  [-c or --compact] count: display the word's definition and example"
     print "  [-h or --help] displays the guide"
     print "--------------------------------------------------------------------"
+    return True
 
 def main(argv):
     parser = ArgumentParser()

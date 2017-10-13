@@ -6,3 +6,4 @@ list*
 __pycache__/
 word_treasure.pyc
 *pyc
+*DS_Store

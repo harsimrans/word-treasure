@@ -134,7 +134,7 @@ def display_help():
     print "--------------------------------------------------------------------"
     return True
 
-def main(argv):
+def main():
     parser = ArgumentParser()
 
     #adding options to parser
@@ -175,4 +175,4 @@ def main(argv):
         display_help()
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+    main()

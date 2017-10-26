@@ -1,9 +1,0 @@
-README.md
-setup.py
-word-treasure/test_wordt.py
-word-treasure/word_treasure.py
-word_treasure.egg-info/PKG-INFO
-word_treasure.egg-info/SOURCES.txt
-word_treasure.egg-info/dependency_links.txt
-word_treasure.egg-info/not-zip-safe
-word_treasure.egg-info/top_level.txt

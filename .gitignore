@@ -7,3 +7,5 @@ __pycache__/
 word_treasure.pyc
 *pyc
 *DS_Store
+/dist
+word_treasure.egg-info
